@@ -71,13 +71,11 @@ passport.use(auth0Strategy);
 
 // Serialize and deserialize user
 passport.serializeUser((user, done) => {
-  console.log("Serializing user");
   done(null, user._id);
 });
 
 passport.deserializeUser(async (id, done) => {
   try {
-    console.log("Deserializing user");
     const user = await User.findById(id);
     done(null, user);
   } catch (error) {

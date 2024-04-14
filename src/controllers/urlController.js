@@ -7,12 +7,12 @@ export const createShortUrl = async (req, res) => {
     const user = req.user._id; // Obtiene el ID del usuario autenticado
 
     const { originalUrl } = req.body;
-    const clientUrl = process.env.BASE_URL; // Obtiene la URL base del cliente
+    const baseUrl = process.env.BASE_URL; // Obtiene la URL base del cliente
 
     // Verifica si la URL ya existe en la base de datos
     const url = await Url.findOne({ originalUrl, user }); // Busca la URL en la base de datos con el ID del usuario autenticado
     if (url) {
-      const shortUrl = `${clientUrl}/${url.shortUrlId}`;
+      const shortUrl = `${baseUrl}/${url.shortUrlId}`;
       return res.json({
         _id: url._id,
         originalUrl,
@@ -35,7 +35,7 @@ export const createShortUrl = async (req, res) => {
     });
     await newUrl.save();
 
-    const shortUrl = `${clientUrl}/${shortUrlId}`;
+    const shortUrl = `${baseUrl}/${shortUrlId}`;
 
     res.json({
       _id: newUrl._id,
@@ -55,12 +55,13 @@ export const createShortUrl = async (req, res) => {
 // Obtener todas las URLs
 export const getUrls = async (req, res) => {
   try {
+    const baseUrl = process.env.BASE_URL; // Obtiene la URL base del cliente
     const urls = await Url.find({ user: req.user._id });
     res.json(
       urls.map((url) => ({
         _id: url._id,
         originalUrl: url.originalUrl,
-        shortUrlId: `${process.env.BASE_URL}/${url.shortUrlId}`,
+        shortUrlId: `${baseUrl}/${url.shortUrlId}`,
         clicks: url.clicks,
         user: url.user,
         date: url.date,

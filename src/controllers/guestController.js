@@ -4,12 +4,12 @@ import guestUrl from "../models/guestUrl.js";
 export const guestCreateShortUrl = async (req, res) => {
   try {
     const { originalUrl } = req.body;
-    const clientUrl = process.env.BASE_URL; // Obtiene la URL base del cliente
+    const baseUrl = process.env.BASE_URL; // Obtiene la URL base del cliente
 
     // Verifica si la URL ya existe en la base de datos
     const url = await guestUrl.findOne({ originalUrl }); // Busca la URL en la base de datos con el ID del usuario invitado
     if (url) {
-      const shortUrl = `${clientUrl}/${url.shortUrlId}`;
+      const shortUrl = `${baseUrl}/${url.shortUrlId}`;
       return res.json({
         _id: url._id,
         originalUrl,
@@ -29,7 +29,7 @@ export const guestCreateShortUrl = async (req, res) => {
     });
     await newUrl.save();
 
-    const shortUrl = `${clientUrl}/${shortUrlId}`;
+    const shortUrl = `${baseUrl}/${shortUrlId}`;
 
     res.json({
       _id: newUrl._id,
