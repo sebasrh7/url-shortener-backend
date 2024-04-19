@@ -1,4 +1,4 @@
-import Url from "../models/Url.js";
+import Url from "../models/url.js";
 import guestUrl from "../models/guestUrl.js";
 
 // Crear una URL corta
@@ -25,7 +25,7 @@ export const createShortUrl = async (req, res) => {
     }
 
     // Crea una URL corta si no existe en la base de datos
-    const shortUrlId = Math.random().toString(36).substring(2, 7);
+    const shortUrlId = await generateUniqueId(user);
 
     const newUrl = new Url({
       originalUrl,

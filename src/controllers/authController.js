@@ -1,6 +1,6 @@
 import dotenv from "dotenv";
 import User from "../models/User.js";
-import Url from "../models/Url.js";
+import Url from "../models/url.js";
 import generateJwt from "../utils/generateJwt.js";
 dotenv.config();
 
@@ -27,8 +27,12 @@ export const callback = (req, res) => {
 };
 
 export const logout = (req, res) => {
-  req.logout();
-  res.redirect(process.env.CLIENT_URL);
+  req.logout((err) => {
+    if (err) {
+      return res.status(500).json({ message: "Failed to log out." });
+    }
+    res.redirect(`${process.env.CLIENT_URL}`);
+  });
 };
 
 export const loginSuccess = (req, res) => {
