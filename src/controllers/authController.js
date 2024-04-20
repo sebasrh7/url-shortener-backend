@@ -1,6 +1,6 @@
 import dotenv from "dotenv";
 import User from "../models/User.js";
-import Url from "../models/url.js";
+import Url from "../models/Url.js";
 import generateJwt from "../utils/generateJwt.js";
 dotenv.config();
 

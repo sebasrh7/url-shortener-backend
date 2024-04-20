@@ -1,4 +1,4 @@
-import Url from "../models/url.js";
+import Url from "../models/Url.js";
 import guestUrl from "../models/guestUrl.js";
 
 // Crear una URL corta
