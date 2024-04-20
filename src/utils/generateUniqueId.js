@@ -1,5 +1,5 @@
 import guestUrl from "../models/guestUrl.js";
-import Url from "../models/url.js";
+import Url from "../models/Url.js";
 
 export const generateUniqueId = async (user) => {
   let shortUrlId = Math.random().toString(36).substring(2, 7); // Genera un ID único de 5 caracteres
