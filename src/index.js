@@ -7,16 +7,17 @@ import bodyParser from "body-parser";
 import router from "./routes/router.js";
 import dotenv from "dotenv";
 
-// Initialize Express
-const app = express();
-
 // Load environment variables
 dotenv.config();
+
+// Initialize Express
+const app = express();
 
 // CORS Middleware
 app.use(
   cors({
     origin: process.env.CLIENT_URL,
+    credentials: true,
   })
 );
 
@@ -26,6 +27,10 @@ app.use(
     secret: process.env.SESSION_SECRET,
     resave: false,
     saveUninitialized: true,
+
+    cookie: {
+      maxAge: 24 * 60 * 60 * 1000, // 24 hours
+    },
   })
 );
 
